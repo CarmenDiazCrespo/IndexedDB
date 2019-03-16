@@ -1,115 +1,122 @@
 "use strict";
 function CreateDB(){
-    var db;
-    var request = indexedDB.open("VS", 3);
-    
-    request.onerror = function(event) {  
-      alert("Error cargando la BD");
-    };
-    
-    request.onsuccess = function(event) {
-      // I get a DB to use it in my students form.
+  var request = indexedDB.open("vs");
+  var db;
+
+  request.onerror = function (e) {
+      alert('Error cargando la base de datos');
+  };
+
+  request.onsuccess = function (event) {
+      alert("request.onsuccess");
       db = request.result;
-      db.onerror = function(event) {
-        // Generic error handler for all errors targeted at this database's
-        // requests!
-        alert("Error en el acceso a la base de datos: " + event.target.errorCode);
+
+      db.onerror = function (event) {
+          // Generic error handler for all errors targeted at this database's
+          // requests!
+          alert("Database error: " + event.target.errorCode);
       };
-    };        
-    request.onupgradeneeded = function(event) {  
-        db = event.taget.result;
-        console.log("Event onupgradeneeded: " + db.name);
-        try {
-          console.log("Hola");
-            // Create an objectStore with autoincrement key    
-            var objectStore = db.createObjectStore("directores", { autoIncrement : true });
-            var objectStore = db.createObjectStore("actores", { autoIncrement : true });
-            var objectStore = db.createObjectStore("categorias", { autoIncrement : true });
-            var objectStore = db.createObjectStore("productions", { autoIncrement : true });
-            console.log ("Object Store has been created");
-        
-            // Use transaction oncomplete to make sure the objectStore creation is 
-            // finished before adding data into it.
-            objectStore.transaction.oncomplete = function(event) {
-                console.log("Everythings is okey");
-            }
-            objectStore.transaction.onerror = function(event) {
-              console.log("No se han creado los almacenes");
+      /*db = event.target.result;
+      var objectStore = db.createObjectStore("categories");
+      objectStore = db.createObjectStore("actors");
+      objectStore = db.createObjectStore("directors");
+      objectStore = db.createObjectStore("productions");
+      objectStore.transaction.oncomplete = function (event) {
+        console.log("Objetos creados");
+      }*/
+
+  };
+  
+  request.onupgradeneeded = function (event) {
+      alert("conectar");
+
+      db = event.target.result;
+      var objectStore = db.createObjectStore("categories");
+      objectStore = db.createObjectStore("actors");
+      objectStore = db.createObjectStore("directors");
+      objectStore = db.createObjectStore("productions");
+
+      objectStore.transaction.oncomplete = function (event) {
+          /*var categorias = vs.categorias;
+          var categoria = categorias.next();
+          var categoryObjectStore = db.transaction("categories", "readwrite").objectStore("categories");
+          while (categoria.done !== true) {
+              categoryObjectStore.add(category.value.getObject(), category.value.name);
+              categoria = categorias.next();
           }
-        } catch (e) {
-            console.log("Exception creating object store: " + e);
-        }
-    }; 
-    this.addDirectorDB=function(director){
-        var DB_STORE_NAME= "directores";
-        console.log(db);
-        var transaction = db.transaction([DB_STORE_NAME], "readwrite");
-        transaction.onerror = function(event) {
-            document.getElementById("error").appendChild(document.createTextNode("Error. No se ha creado el director en la base de datos: " + event.target.error + "<br/>"));
-        };
-            
-        var objectStore = transaction.objectStore(DB_STORE_NAME);  
-            
-        // I add the new Director to object store
-        var request = objectStore.add(director);
-        request.onsuccess = function(event) {
-            //document.getElementById("result").appendChild(document.createTextNode("Se ha creado el nuevo director: " + director));
-            console.log("Director add to object store: " + director.name + " with key " + event.target.result);
-        };
-       
-    }
-    this.addActorDB=function(actor){
-      var DB_STORE_NAME= "actores";
-      console.log(db);
-      var transaction = db.transaction([DB_STORE_NAME], "readwrite");
-      transaction.onerror = function(event) {
-          document.getElementById("result").appendChild(document.createTextNode("Error. No se ha creado el actor en la base de datos: " + event.target.error + "<br/>"));
-      };
-          
-      var objectStore = transaction.objectStore(DB_STORE_NAME);  
-          
-      // I add the new Actor to object store
-      var request = objectStore.add(actor);
-      request.onsuccess = function(event) {
-          document.getElementById("result").appendChild(document.createTextNode("Se ha creado el nuevo actor: " + actor));
-          console.log("Actor add to object store: " + actor.name + " with key " + event.target.result);
-      };
-     
-    }
-  this.addCategoryDB=function(categoria){
-    var DB_STORE_NAME= "categorias";
 
-    var transaction = db.transaction([DB_STORE_NAME], "readwrite");
-    transaction.onerror = function(event) {
-        document.getElementById("result").appendChild(document.createTextNode("Error. No se ha creado la categoría en la base de datos: " + event.target.error + "<br/>"));
-    };
-        
-    var objectStore = transaction.objectStore(DB_STORE_NAME);  
-        
-    // I add the new Category to object store
-    var request = objectStore.add(categoria);
-    request.onsuccess = function(event) {
-        document.getElementById("result").appendChild(document.createTextNode("Se ha creado el nuevo estudiante: " + categoria));
-        console.log("Director add to object store: " + categoria.name + " with key " + event.target.result);
-    };
-   
-  }
-  this.addProductionDB=function(production){
-    var DB_STORE_NAME= "productions";
+          var actors = vs.actors;
+          var actor = actors.next();
+          var actorObjectStore = db.transaction("actors", "readwrite").objectStore("actors");
+          while (actor.done !== true) {
+              actorObjectStore.add(actor.value.getObject(), actor.value.name + " " + actor.value.lastname);
+              actor = actors.next();
+          }
 
-    var transaction = db.transaction([DB_STORE_NAME], "readwrite");
-    transaction.onerror = function(event) {
-        document.getElementById("result").appendChild(document.createTextNode("Error. No se ha creado la categoría en la base de datos: " + event.target.error + "<br/>"));
-    };
-        
-    var objectStore = transaction.objectStore(DB_STORE_NAME);  
-        
-    // I add the new Production to object store
-    var request = objectStore.add(production);
-    request.onsuccess = function(event) {
-        document.getElementById("result").appendChild(document.createTextNode("Se ha creado la nueva producción: " + production));
-        console.log("Production add to object store: " + production.title + " with key " + event.target.result);
-    };
-   
-  }
+          var directores = vs.directores;
+          var director = directores.next();
+          var directorObjectStore = db.transaction("directors", "readwrite").objectStore("directors");
+          while (director.done !== true) {
+              directorObjectStore.add(director.value.getObject(), director.value.name + " " + director.value.lastname);
+              director = directores.next();
+          }
+
+          var productions = vs.productions;
+          var production = productions.next();
+          var productionObjectStore = db.transaction("productions", "readwrite").objectStore("productions");
+          while (production.done !== true) {
+              productionObjectStore.add(production.value.getObject(), production.value.title);
+              production = productions.next();
+          }*/
+      }
+      
+
+  };
+}
+function addDB(obj, store, key) {
+  var db;
+  var request = indexedDB.open("vs");
+
+  request.onerror = function (event) {
+      alert("Fallo en el addDB");
+  };
+
+  request.onsuccess = function (event) {
+      db = event.target.result;
+      db.onerror = function (event) {
+          // Generic error handler for all errors targeted at this database's
+          // requests!
+          console.log("Database error: " + event.target.error);
+      };
+
+
+      var transaction = db.transaction([store], "readwrite");
+      var objectStore = transaction.objectStore(store);
+      var request2 = objectStore.add(obj.getObject(), key);
+      request2.onsuccess = function (event) {
+          console.log(event.target.result);
+      };
+  };
+}
+function delDB(store, key) {
+  var db;
+  var request = indexedDB.open("vs");
+
+  request.onerror = function (event) {
+      alert("Fallo en el delDB");
+  };
+
+  request.onsuccess = function (event) {
+      db = event.target.result;
+      db.onerror = function (event) {
+          alert("Database error: " + event.target.error);
+      };
+
+      var transaction = db.transaction([store], "readwrite");
+      var objectStore = transaction.objectStore(store);
+      var request2 = objectStore.delete(key);
+      request2.onsuccess = function (event) {
+          //
+      };
+  };
 }

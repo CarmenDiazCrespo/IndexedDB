@@ -1,8 +1,6 @@
 "use strict";
 
 var vs = VideoSystem.getInstance();
-//Creo la BD
-var db= new CreateDB();
 
 function crearObjetos(){    
     //Creo los objetos que voy a utilizar.
@@ -960,6 +958,7 @@ function initPopulate() {
     showHomePage();
     //Las funciones del menu
     menu();
+    CreateDB();
 }
 
 window.onload = initPopulate;

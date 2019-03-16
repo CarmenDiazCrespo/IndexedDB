@@ -65,7 +65,7 @@ function openSesion() {
             document.cookie = "username=prueba";
             p.setAttribute("style", "color:green");
             p.appendChild(document.createTextNode("Inicio de sesión correcto"));
-            window.location.href = 'http://localhost/IndexedDB/VideoStreaming.html';
+            window.location.href = 'http://localhost/IndexedDB-master/VideoStreaming.html';
         } else {
             p.setAttribute("style", "color:red");
             p.appendChild(document.createTextNode("Usuario o contraseña incorrectos."));
@@ -82,7 +82,7 @@ function closeSesion() {
 
         p.setAttribute("style", "color:green");
         p.innerHTML = "Cerrado Correctamente";
-        window.location.href = 'http://localhost/IndexedDB/VideoStreaming.html';
+        window.location.href = 'http://localhost/IndexedDB-master/VideoStreaming.html';
     }
 }
 function getCookie(cname) {
@@ -571,7 +571,7 @@ function DeltPro(){
         return function () {
             var select = document.forms["delt-pro"]["pro-delt"];
             var valuePro = select.value;
-            console.log("valuePro "+valuePro);
+            //onsole.log("valuePro "+valuePro);
             var p = document.getElementById("result");
             removeChildren(p);
             if (valuePro == "") {
@@ -584,9 +584,9 @@ function DeltPro(){
                 var production = productions.next();
 
                 while (production.done !== true) {
-                    console.log("Nombre de la produccion:"+production.value.title);
+                    //console.log("Nombre de la produccion:"+production.value.title);
                     if(valuePro === production.value.title){
-                        console.log("Nombre de la produccion a eliminar:"+production.value.title);
+                        //console.log("Nombre de la produccion a eliminar:"+production.value.title);
                         vs.removeProduction(production.value);
                     }
                     production = productions.next();

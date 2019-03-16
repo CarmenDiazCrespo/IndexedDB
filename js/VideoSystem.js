@@ -193,7 +193,6 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 					{director: director,
 					dProductions:[] }
 				);
-				db.addDirectorDB(director);
 				//Devuelvo el número de elementos del array _directores.
 				return _directores.length;
 			}
@@ -262,7 +261,7 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 				}
 				//Si todo va bien añado el production.
 				_productions.push(production);
-				db.addProductionDB(production);
+				addDB(production, "productions", production.title);
 				//Devuelvo el número de elementos que tiene el array _productions.
 				return _productions.length;
 			}
@@ -309,7 +308,8 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 					}
 				}
 
-                _productions.splice(post,1);
+				_productions.splice(post,1);
+				delDB("productions", production.title);
 				//Devuelvo el número de elementos del array de producciones.
 				return _productions.length;
 			}
@@ -363,7 +363,6 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 				_actors.push({
 					actor: actor,
 					aProductions:[]});
-				db.addActorDB(actor);
 				//Devuelvo el número de elementos que tiene el array _actors.
 				return _actors.length;
 			}
@@ -429,7 +428,6 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 					{categoria:categoria,
 					cProductions:[]}
 				);
-				db.addCategoryDB(categoria);
 				//Devuelvo el número de elementos que tiene el array _categorias.
 				return _categorias.length;
 			}
