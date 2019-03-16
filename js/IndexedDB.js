@@ -1,77 +1,115 @@
 "use strict";
-function CreateDB(DB_NAME, DB_VERSION){
+function CreateDB(){
     var db;
-    var request = indexedDB.open(DB_NAME, DB_VERSION);
+    var request = indexedDB.open("VS", 3);
     
     request.onerror = function(event) {  
-      document.getElementById("error").appendChild(document.createTextNode("Error en la solicitud: " + event.target.error + "<br/>"));
+      alert("Error cargando la BD");
     };
     
     request.onsuccess = function(event) {
       // I get a DB to use it in my students form.
-      db = event.target.result;
+      db = request.result;
       db.onerror = function(event) {
         // Generic error handler for all errors targeted at this database's
         // requests!
-        document.getElementById("error").appendChild(document.createTextNode("Error en el acceso a la base de datos: " + event.target.error + "<br/>"));
+        alert("Error en el acceso a la base de datos: " + event.target.errorCode);
       };
-    };
-
-    this.createDirectorsTable = function (){
-        var DB_STORE_NAME= "directores";
-        
-        request.onupgradeneeded = function(event) {  
-            db = event.target.result;
-            console.log("Event onupgradeneeded: " + db.name);
-          try {
+    };        
+    request.onupgradeneeded = function(event) {  
+        db = event.taget.result;
+        console.log("Event onupgradeneeded: " + db.name);
+        try {
+          console.log("Hola");
             // Create an objectStore with autoincrement key    
-            var directorsObjectStore = db.createObjectStore(DB_STORE_NAME, { autoIncrement : true });
-            console.log ("Director Object Store has been created");
+            var objectStore = db.createObjectStore("directores", { autoIncrement : true });
+            var objectStore = db.createObjectStore("actores", { autoIncrement : true });
+            var objectStore = db.createObjectStore("categorias", { autoIncrement : true });
+            var objectStore = db.createObjectStore("productions", { autoIncrement : true });
+            console.log ("Object Store has been created");
         
             // Use transaction oncomplete to make sure the objectStore creation is 
             // finished before adding data into it.
-            /*directorsObjectStore.transaction.oncomplete = function(event) {
-              // Store values in the newly created objectStore.
-              /*var directorsObjectStore = db.transaction(DB_STORE_NAME, "readwrite").objectStore(DB_STORE_NAME);
-
-              var directores = vs.directores;
-              var director = directores.next();
-
-              while (director.done !== true){
-                directorsObjectStore.add(director.value.getObject());
-                console.log("director add to object store: " + director.value.name);
-                director = directores.next();
-              }
-              
-             console.log("Everythings is okey");
-          }*/
-          } catch (e) {
-            console.log("Exception creating object store: " + e);
+            objectStore.transaction.oncomplete = function(event) {
+                console.log("Everythings is okey");
+            }
+            objectStore.transaction.onerror = function(event) {
+              console.log("No se han creado los almacenes");
           }
-        }; 
-    }
-    this.addDirectorDB=function(director){
-        console.log("addDirectorDB");
-        return function(event){
-            var DB_STORE_NAME= "directores";
-            console.log("Nombre del director añadido: "+ director.name);
-            var transaction = db.transaction([DB_STORE_NAME], "readwrite");
-            transaction.onerror = function(event) {
-                document.getElementById("error").appendChild(document.createTextNode("Error. No se ha creado el estudiante en la base de datos: " + event.target.error + "<br/>"));
-            };
-            
-            var directorsObjectStore = transaction.objectStore(DB_STORE_NAME);  
-            
-            // I add the new Director to object store
-            var request = directorsObjectStore.add(director);
-            console.log("Nombre del director añadido: "+ director.name);
-            request.onsuccess = function(event) {
-                document.getElementById("result").appendChild(document.createTextNode("Se ha creado el nuevo estudiante: " + director));
-                console.log("Director add to object store: " + director.name + " with key " + event.target.result);
-            };
-
+        } catch (e) {
+            console.log("Exception creating object store: " + e);
         }
-        
-                
+    }; 
+    this.addDirectorDB=function(director){
+        var DB_STORE_NAME= "directores";
+        console.log(db);
+        var transaction = db.transaction([DB_STORE_NAME], "readwrite");
+        transaction.onerror = function(event) {
+            document.getElementById("error").appendChild(document.createTextNode("Error. No se ha creado el director en la base de datos: " + event.target.error + "<br/>"));
+        };
+            
+        var objectStore = transaction.objectStore(DB_STORE_NAME);  
+            
+        // I add the new Director to object store
+        var request = objectStore.add(director);
+        request.onsuccess = function(event) {
+            //document.getElementById("result").appendChild(document.createTextNode("Se ha creado el nuevo director: " + director));
+            console.log("Director add to object store: " + director.name + " with key " + event.target.result);
+        };
+       
     }
+    this.addActorDB=function(actor){
+      var DB_STORE_NAME= "actores";
+      console.log(db);
+      var transaction = db.transaction([DB_STORE_NAME], "readwrite");
+      transaction.onerror = function(event) {
+          document.getElementById("result").appendChild(document.createTextNode("Error. No se ha creado el actor en la base de datos: " + event.target.error + "<br/>"));
+      };
+          
+      var objectStore = transaction.objectStore(DB_STORE_NAME);  
+          
+      // I add the new Actor to object store
+      var request = objectStore.add(actor);
+      request.onsuccess = function(event) {
+          document.getElementById("result").appendChild(document.createTextNode("Se ha creado el nuevo actor: " + actor));
+          console.log("Actor add to object store: " + actor.name + " with key " + event.target.result);
+      };
+     
+    }
+  this.addCategoryDB=function(categoria){
+    var DB_STORE_NAME= "categorias";
+
+    var transaction = db.transaction([DB_STORE_NAME], "readwrite");
+    transaction.onerror = function(event) {
+        document.getElementById("result").appendChild(document.createTextNode("Error. No se ha creado la categoría en la base de datos: " + event.target.error + "<br/>"));
+    };
+        
+    var objectStore = transaction.objectStore(DB_STORE_NAME);  
+        
+    // I add the new Category to object store
+    var request = objectStore.add(categoria);
+    request.onsuccess = function(event) {
+        document.getElementById("result").appendChild(document.createTextNode("Se ha creado el nuevo estudiante: " + categoria));
+        console.log("Director add to object store: " + categoria.name + " with key " + event.target.result);
+    };
+   
+  }
+  this.addProductionDB=function(production){
+    var DB_STORE_NAME= "productions";
+
+    var transaction = db.transaction([DB_STORE_NAME], "readwrite");
+    transaction.onerror = function(event) {
+        document.getElementById("result").appendChild(document.createTextNode("Error. No se ha creado la categoría en la base de datos: " + event.target.error + "<br/>"));
+    };
+        
+    var objectStore = transaction.objectStore(DB_STORE_NAME);  
+        
+    // I add the new Production to object store
+    var request = objectStore.add(production);
+    request.onsuccess = function(event) {
+        document.getElementById("result").appendChild(document.createTextNode("Se ha creado la nueva producción: " + production));
+        console.log("Production add to object store: " + production.title + " with key " + event.target.result);
+    };
+   
+  }
 }

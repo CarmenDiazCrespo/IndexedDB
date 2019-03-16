@@ -2,7 +2,7 @@
 
 var vs = VideoSystem.getInstance();
 //Creo la BD
-var db= new CreateDB("VS",3);
+var db= new CreateDB();
 
 function crearObjetos(){    
     //Creo los objetos que voy a utilizar.
@@ -24,7 +24,6 @@ function crearObjetos(){
     vs.addDirector(dir2);
     vs.addDirector(dir3);
     vs.addDirector(dir4);
-    db.createDirectorsTable();
     //Objetos Recursos
     var re1= new Resource("59:20","www.w3school.com");
     var re2= new Resource("229:10","www.gnula.nu");
