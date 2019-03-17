@@ -116,6 +116,8 @@ function showHomePage(){
 
     //Borro lo que haya en el main
     var main = document.getElementById("div-main");
+    var divResult = document.getElementById("mostrarResult");
+    removeChildren(divResult);
     removeChildren(main);
 
     menuForm();
@@ -282,6 +284,8 @@ function showCategory(categoria) {
     return function () {
         //borro lo que haya en el main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
 
         //El nombre y esas cosis de las categorías
@@ -338,6 +342,8 @@ function showActors(){
     return function(){
         //borro lo que haya en el main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
         
         var tituloPag = document.createElement("h2");
@@ -414,6 +420,8 @@ function showActor(actor) {
     return function () {
         //Limpiar main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
         
         //Creo un div para meter las fotos
@@ -496,6 +504,8 @@ function showDirectors(){
     return function () {
         //Borro lo que haya en el main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
 
         var tituloPag = document.createElement("h2");
@@ -576,6 +586,8 @@ function showDirector(director) {
     return function () {
         //Borro lo que hay en el main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
 
         //Creo un div para meter las fotos
@@ -655,6 +667,8 @@ function showProductions(){
     return function(){
         //Borro el main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
 
         var tituloPag = document.createElement("h2");
@@ -712,6 +726,8 @@ function showProduction(production) {
     return function () {
         //Borro el main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
         //Empiezo con los actores
         //Foto de la producción 
@@ -857,6 +873,8 @@ function showResource(production) {
     return function () {
         //El main
         var main = document.getElementById("div-main");
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         //Foto de la produccion
         var divFoto = document.createElement("div");
         divFoto.setAttribute("class", "col-sm-4");

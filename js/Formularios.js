@@ -58,14 +58,14 @@ function openSesion() {
         var pass = document.forms["login"]["pass"].value;
 
         var main = document.getElementById("div-main");
-        var p = document.createElement("p");
+        var p = document.createElement("h4");
         main.appendChild(p);
-        removeChildren(p);
+        p.appendChild(document.createTextNode(""));;
         if (user === "prueba" && pass === "prueba") {
             document.cookie = "username=prueba";
             p.setAttribute("style", "color:green");
             p.appendChild(document.createTextNode("Inicio de sesión correcto"));
-            window.location.href = 'http://localhost/IndexedDB-master/VideoStreaming.html';
+            window.location.href = 'http://localhost/IndexedDB/VideoStreaming.html';
         } else {
             p.setAttribute("style", "color:red");
             p.appendChild(document.createTextNode("Usuario o contraseña incorrectos."));
@@ -77,12 +77,12 @@ function closeSesion() {
         document.cookie = "username=; max-age=0";
 
         var main = document.getElementById("div-main");
-        var p = document.createElement("p");
+        var p = document.createElement("h4");
         main.appendChild(p);
 
         p.setAttribute("style", "color:green");
         p.innerHTML = "Cerrado Correctamente";
-        window.location.href = 'http://localhost/IndexedDB-master/VideoStreaming.html';
+        window.location.href = 'http://localhost/IndexedDB/VideoStreaming.html';
     }
 }
 function getCookie(cname) {
@@ -279,10 +279,12 @@ function DeltCat(){
         return function () {
             var select = document.forms["delt-cat"]["cat-delt"];
             var valueCat = select.value;
-            var p = document.getElementById("result");
-            if(p.children.length !== ""){
-                removeChildren(p);
-            }
+
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
+            
             
             if (valueCat == "") {
                 p.appendChild(document.createTextNode("Error al eliminar la categoría"));
@@ -295,6 +297,7 @@ function DeltCat(){
                 while (categoria.done !== true) {
                     if(valueCat === categoria.value.name){
                         vs.removeCategory(categoria.value);
+                        deltDB("category", categoria.value.name);
                     }
                     categoria = categorias.next();
                 }
@@ -309,6 +312,8 @@ function DeltCat(){
     return function(){
         var main = document.getElementById("div-main");
         removeChildren(main);
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Eliminar categoría"));
@@ -366,9 +371,6 @@ function DeltCat(){
         btn.addEventListener("click", deltCategory())
         div1.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
     }
     
 }
@@ -378,8 +380,10 @@ function DeltDir(){
         return function () {
             var form = document.forms["delt-dir"]["dir-delt"];
             var valueDir = form.value;
-            var p = document.getElementById("result");
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (valueDir == "") {
                 p.appendChild(document.createTextNode("Error al eliminar el director"));
                 p.setAttribute("style", "color:red");
@@ -392,6 +396,8 @@ function DeltDir(){
                 while (director.done !== true){
                     if(valueDir === director.value.name){
                         vs.removeDirector(director.value);
+                        var key= director.value.name + " "+ director.value.lastname1; 
+                        deltDB("directors", key);
                     }
                     director = directores.next();
                 }
@@ -405,6 +411,8 @@ function DeltDir(){
     return function(){
         var main = document.getElementById("div-main");
         removeChildren(main);
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Eliminar Director"));
@@ -462,9 +470,6 @@ function DeltDir(){
         btn.addEventListener("click", deltDirector())
         div1.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
     }
     
 }
@@ -475,8 +480,10 @@ function DeltAc(){
         return function () {
             var form = document.forms["delt-ac"]["ac-delt"];
             var valueAc = form.value;
-            var p = document.getElementById("result");
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (valueAc == "") {
                 p.appendChild(document.createTextNode("Error al eliminar el actor"));
                 p.setAttribute("style", "color:red");
@@ -489,6 +496,8 @@ function DeltAc(){
                 while (actor.done !== true){
                     if(valueAc === actor.value.name){
                         vs.removeActor(actor.value);
+                        var key= actor.value.name + " "+ actor.value.lastname1; 
+                        deltDB("actors", key);
                     }
                     actor = actors.next();
                 }
@@ -502,6 +511,8 @@ function DeltAc(){
     return function(){
         var main = document.getElementById("div-main");
         removeChildren(main);
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Eliminar Actor"));
@@ -560,7 +571,7 @@ function DeltAc(){
         div1.appendChild(btn);
 
         var p = document.createElement("p");
-        p.setAttribute("id", "result");
+        p.setAttribute("id", "result1");
         form.appendChild(p);
     }
     
@@ -572,8 +583,10 @@ function DeltPro(){
             var select = document.forms["delt-pro"]["pro-delt"];
             var valuePro = select.value;
             //onsole.log("valuePro "+valuePro);
-            var p = document.getElementById("result");
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (valuePro == "") {
                 p.appendChild(document.createTextNode("Error al eliminar la producción"));
                 p.setAttribute("style", "color:red");
@@ -588,6 +601,7 @@ function DeltPro(){
                     if(valuePro === production.value.title){
                         //console.log("Nombre de la produccion a eliminar:"+production.value.title);
                         vs.removeProduction(production.value);
+                        deltDB("productions", production.value.title);
                     }
                     production = productions.next();
                 }
@@ -601,6 +615,8 @@ function DeltPro(){
     return function(){
         var main = document.getElementById("div-main");
         removeChildren(main);
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Eliminar Producción"));
@@ -658,9 +674,6 @@ function DeltPro(){
         btn.addEventListener("click", deltDirector())
         div1.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
     }
     
 }
@@ -670,8 +683,10 @@ function CreateCategory() {
         return function () {
             var name = document.forms["catForm"]["name"].value;
             var description = document.forms["catForm"]["description"].value;
-            var p = document.getElementById("result");
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (name == "") {
                 p.appendChild(document.createTextNode("Error al introducir la categoría"));
                 p.setAttribute("style", "color:red");
@@ -683,6 +698,7 @@ function CreateCategory() {
                 }
 
                 var x = vs.addCategory(newCat);
+                addDB(newCat, "categories", name);
                 console.log(x);
             }
             document.forms["catForm"].reset();
@@ -696,6 +712,9 @@ function CreateCategory() {
         var main = document.getElementById("div-main");
 
         removeChildren(main);
+
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Añadir categoría"));
@@ -763,9 +782,6 @@ function CreateCategory() {
         btn.addEventListener("click", newCategory())
         div3.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
 
     }
 }
@@ -778,10 +794,12 @@ function CreateDirector() {
             var image = document.forms["dirForm"]["img"].value;
             var imagePart = image.split("\\");
             var imageLoc = imagePart[imagePart.length-1];
-            var p = document.getElementById("result")
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (name == "" || lastname == "" || born == "") {
-                p.appendChild(document.createTextNode("Error al introducir el director"));
+                p.appendChild(document.createTextNode("Algún elemento obligatorio está vacio"));
                 p.setAttribute("style", "color:red");
                 console.log("Error de vacio");
                 throw new EmptyValueException();
@@ -791,6 +809,8 @@ function CreateDirector() {
                     dir.picture = "imagenes/" + imageLoc;
                 }
                 vs.addDirector(dir);
+                var key = dir.name + " " + dir.lastname1;
+                addDB(dir, "directors", key);
                 //Productions Seleccionadas
                 var producciones = document.getElementsByClassName("producciones");
                 var long = producciones.length;
@@ -824,6 +844,9 @@ function CreateDirector() {
         var main = document.getElementById("div-main");
 
         removeChildren(main);
+
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Añadir director"));
@@ -979,14 +1002,6 @@ function CreateDirector() {
         btn.addEventListener("click", newDirector())
         div5.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
-
-
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
 
     }
 }
@@ -999,16 +1014,22 @@ function CreateActor() {
             var born = document.forms["actForm"]["born"].value;
             var image = document.forms["actForm"]["img"].value;
             var imagePart = image.split("\\");
-            var p = document.getElementById("result")
-            removeChildren(p);
+
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
+
             if (name == "" || lastname == "" || born == "") {
-                p.appendChild(document.createTextNode("Error al introducir el actor"));
+                p.appendChild(document.createTextNode("Algún elemento obligatorio está vacio."));
                 p.setAttribute("style", "color:red");
                 throw new EmptyValueException();
             } else {
                 var actor = new Person(name, lastname,"", born, imagePart);
 
                 vs.addActor(actor);
+                var key = actor.name + " " + actor.lastname1;
+                addDB(actor, "actors", key);
                 //Productions Seleccionadas
                 var producciones = document.getElementsByClassName("producciones");
                 var long = producciones.length;
@@ -1039,8 +1060,10 @@ function CreateActor() {
 
     return function () {
         var main = document.getElementById("div-main");
-
         removeChildren(main);
+
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Añadir actor"));
@@ -1197,11 +1220,7 @@ function CreateActor() {
         div5.appendChild(btn);
 
         var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
-
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
+        p.setAttribute("id", "result1");
         form.appendChild(p);
 
     }
@@ -1215,20 +1234,23 @@ function CreateProduction() {
             var synopsis = document.forms["proForm"]["synopsis"].value;
             var image = document.forms["proForm"]["img"].value;
             var imagePart = image.split("\\");
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             var select = document.forms["proForm"]["cat"];
             var id = select.value;
 
-            var p = document.getElementById("result");
 
             if (title == "" || publication == "") {
-                p.appendChild(document.createTextNode("Error al introducir la producción"));
+                p.appendChild(document.createTextNode("Algún elemento obligatorio está vacio."));
                 p.setAttribute("style", "color:red");
                 throw new EmptyValueException();
             } else {
                 var pro = new Movie(title, nationality, publication, synopsis, imagePart);
         
                 vs.addProduction(pro);
+                addDB(pro,"productions", pro.title);
 
                 //Categorias
                 var categorias = vs.categorias;
@@ -1304,11 +1326,12 @@ function CreateProduction() {
 
     return function () {
         var main = document.getElementById("div-main");
-
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
 
         var h2 = document.createElement("h2");
-        h2.appendChild(document.createTextNode("Añadir producción"));
+        h2.appendChild(document.createTextNode("Crear Producción"));
         main.appendChild(h2);
 
         var form = document.createElement("form");
@@ -1555,9 +1578,6 @@ function CreateProduction() {
         btn.addEventListener("click", newProduction())
         div9.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
 
     }
 }
@@ -1570,10 +1590,12 @@ function ModCategory() {
             var id = select.options[select.options.selectedIndex].text;
             var name = document.forms["catForm"]["name"].value;
             var description = document.forms["catForm"]["description"].value;
-            var p = document.getElementById("result");
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (name == "" || id == "") {
-                p.appendChild(document.createTextNode("Error al modificar la categoría"));
+                p.appendChild(document.createTextNode("Algún elemento obligatorio está vacio."));
                 p.setAttribute("style", "color:red");
                 throw new EmptyValueException();
             } else {
@@ -1587,7 +1609,7 @@ function ModCategory() {
                     }
                     categoria = categorias.next();
                 }
-
+                modDBCategory(id);
             }
             select.options[select.options.selectedIndex].text = name;
             categoriesMenuPopulate();
@@ -1598,7 +1620,8 @@ function ModCategory() {
 
     return function () {
         var main = document.getElementById("div-main");
-
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
         removeChildren(main);
 
         var h2 = document.createElement("h2");
@@ -1697,10 +1720,6 @@ function ModCategory() {
         btn.addEventListener("click", modCategory())
         div4.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
-
     }
 }
 function ModDirector(){
@@ -1711,8 +1730,10 @@ function ModDirector(){
             var name = document.forms["dirForm"]["name"].value;
             var lastname1 = document.forms["dirForm"]["lastname1"].value;
             var born = new Date(document.forms["dirForm"]["born"].value);
-            var p = document.getElementById("result");
-            removeChildren(p);
+           var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (name == "" || lastname1 == "" || born == "" || id == "") {
                 p.appendChild(document.createTextNode("Error al modificar el director"));
                 p.setAttribute("style", "color:red");
@@ -1729,7 +1750,7 @@ function ModDirector(){
                     }
                     director = directores.next();
                 }
-
+                modDBPerson("directors",id);
             }
             select.options[select.options.selectedIndex].text = name + " " + lastname1;
             p.appendChild(document.createTextNode("Guardado"));
@@ -1739,6 +1760,9 @@ function ModDirector(){
     return function(){
         var main = document.getElementById("div-main");
         removeChildren(main);
+
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Modificar Director"));
@@ -1855,9 +1879,6 @@ function ModDirector(){
         btn.addEventListener("click", modDirector())
         div5.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
     }
 }
 function ModActor(){
@@ -1868,8 +1889,10 @@ function ModActor(){
             var name = document.forms["dirForm"]["name"].value;
             var lastname1 = document.forms["dirForm"]["lastname1"].value;
             var born = new Date(document.forms["dirForm"]["born"].value);
-            var p = document.getElementById("result");
-            removeChildren(p);
+            var div1 = document.getElementById("mostrarResult");
+            removeChildren(div1);
+            var p = document.createElement("h4");
+            div1.appendChild(p);
             if (name == "" || lastname1 == "" || born == "" || id == "") {
                 p.appendChild(document.createTextNode("Error al modificar el actor"));
                 p.setAttribute("style", "color:red");
@@ -1883,10 +1906,11 @@ function ModActor(){
                         actor.value.name= name;
                         actor.value.lastname1=lastname1;
                         actor.value.born = born;
+                        
                     }
                     actor = actors.next();
                 }
-
+                modDBPerson("actors",id);
             }
             select.options[select.options.selectedIndex].text = name + " " + lastname1;
             p.appendChild(document.createTextNode("Guardado"));
@@ -1896,6 +1920,9 @@ function ModActor(){
     return function(){
         var main = document.getElementById("div-main");
         removeChildren(main);
+
+        var divResult = document.getElementById("mostrarResult");
+        removeChildren(divResult);
 
         var h2 = document.createElement("h2");
         h2.appendChild(document.createTextNode("Modificar Actor"));
@@ -2012,8 +2039,5 @@ function ModActor(){
         btn.addEventListener("click", modActor())
         div5.appendChild(btn);
 
-        var p = document.createElement("p");
-        p.setAttribute("id", "result");
-        form.appendChild(p);
     }
 }
