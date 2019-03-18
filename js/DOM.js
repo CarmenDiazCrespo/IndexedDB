@@ -2,7 +2,7 @@
 
 var vs = VideoSystem.getInstance();
 
-function crearObjetos(){    
+function crearObjetos(){
     //Creo los objetos que voy a utilizar.
     //Objetos usuarios
     var u1 = new User("kheiss","montoya@hotmail.com","Montoya123!");
@@ -71,7 +71,6 @@ function crearObjetos(){
     vs.addActor(ac3);
     vs.addActor(ac4);
     vs.addActor(ac5);
-
     //objetos category
     var cat5= new Category("Lo más visto","Las peliculas y series más vistas...");
     var cat1= new Category("Comedia","Te partirás de risa.");
@@ -85,9 +84,9 @@ function crearObjetos(){
     //vs.addCategory(cat5);
     
     //Objetos de Coordenadas
-   /* var c1 = new Coordinate(-1, 1);
+    var c1 = new Coordinate(-1, 1);
     var c2 = new Coordinate(22, -22);
-    var c3 = new Coordinate(-83, 13);*/
+    var c3 = new Coordinate(-83, 13);
 
     //Asignar producciones a categorias
     vs.assignCategory(cat4, pro1);
@@ -116,9 +115,10 @@ function showHomePage(){
 
     //Borro lo que haya en el main
     var main = document.getElementById("div-main");
+    removeChildren(main);
+
     var divResult = document.getElementById("mostrarResult");
     removeChildren(divResult);
-    removeChildren(main);
 
     menuForm();
     
@@ -284,9 +284,9 @@ function showCategory(categoria) {
     return function () {
         //borro lo que haya en el main
         var main = document.getElementById("div-main");
+        removeChildren(main);
         var divResult = document.getElementById("mostrarResult");
         removeChildren(divResult);
-        removeChildren(main);
 
         //El nombre y esas cosis de las categorías
         var h2 = document.createElement("h2");
@@ -342,9 +342,9 @@ function showActors(){
     return function(){
         //borro lo que haya en el main
         var main = document.getElementById("div-main");
+        removeChildren(main);
         var divResult = document.getElementById("mostrarResult");
         removeChildren(divResult);
-        removeChildren(main);
         
         var tituloPag = document.createElement("h2");
         tituloPag.appendChild(document.createTextNode("Actores"));
@@ -420,10 +420,9 @@ function showActor(actor) {
     return function () {
         //Limpiar main
         var main = document.getElementById("div-main");
+        removeChildren(main);
         var divResult = document.getElementById("mostrarResult");
         removeChildren(divResult);
-        removeChildren(main);
-        
         //Creo un div para meter las fotos
         var foto = document.createElement("div");
         foto.setAttribute("class", "col-sm-4");
@@ -504,10 +503,9 @@ function showDirectors(){
     return function () {
         //Borro lo que haya en el main
         var main = document.getElementById("div-main");
+        removeChildren(main);
         var divResult = document.getElementById("mostrarResult");
         removeChildren(divResult);
-        removeChildren(main);
-
         var tituloPag = document.createElement("h2");
         tituloPag.appendChild(document.createTextNode("Directores"));
         tituloPag.setAttribute("id","Ini");
@@ -586,10 +584,9 @@ function showDirector(director) {
     return function () {
         //Borro lo que hay en el main
         var main = document.getElementById("div-main");
+        removeChildren(main);
         var divResult = document.getElementById("mostrarResult");
         removeChildren(divResult);
-        removeChildren(main);
-
         //Creo un div para meter las fotos
         var foto = document.createElement("div");
         foto.setAttribute("class", "col-sm-4");
@@ -667,10 +664,9 @@ function showProductions(){
     return function(){
         //Borro el main
         var main = document.getElementById("div-main");
+        removeChildren(main);
         var divResult = document.getElementById("mostrarResult");
         removeChildren(divResult);
-        removeChildren(main);
-
         var tituloPag = document.createElement("h2");
         tituloPag.appendChild(document.createTextNode("Producciones"));
         tituloPag.setAttribute("id","Ini");
@@ -726,9 +722,9 @@ function showProduction(production) {
     return function () {
         //Borro el main
         var main = document.getElementById("div-main");
+        removeChildren(main);
         var divResult = document.getElementById("mostrarResult");
         removeChildren(divResult);
-        removeChildren(main);
         //Empiezo con los actores
         //Foto de la producción 
         var foto = document.createElement("div");
@@ -873,8 +869,6 @@ function showResource(production) {
     return function () {
         //El main
         var main = document.getElementById("div-main");
-        var divResult = document.getElementById("mostrarResult");
-        removeChildren(divResult);
         //Foto de la produccion
         var divFoto = document.createElement("div");
         divFoto.setAttribute("class", "col-sm-4");
@@ -970,13 +964,13 @@ function menu(){
 
 }
 function initPopulate() {
+    CreateDB();
     //Método para crear los objetos
     crearObjetos();
     //Llamo al método para que se vean las categorías en el main
     showHomePage();
     //Las funciones del menu
     menu();
-    CreateDB();
 }
 
 window.onload = initPopulate;

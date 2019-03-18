@@ -16,7 +16,7 @@ function Login(){
         form.appendChild(formGroup1);
 
         var userN = document.createElement("label");
-        userN.appendChild(document.createTextNode("UserName:"));
+        userN.appendChild(document.createTextNode("Nombre de usuario:"));
         formGroup1.appendChild(userN);
 
         var input1 = document.createElement("input");
@@ -24,7 +24,7 @@ function Login(){
         input1.setAttribute("class", "form-control");
         input1.setAttribute("name", "userN");
         input1.setAttribute("id", "userN");
-        input1.setAttribute("placeholder", "Enter UserName");
+        input1.setAttribute("placeholder", "Introduce tu nombre de usuario");
         formGroup1.appendChild(input1);
 
         var formGroup2 = document.createElement("div");
@@ -32,7 +32,7 @@ function Login(){
         form.appendChild(formGroup2);
 
         var pass = document.createElement("label");
-        pass.appendChild(document.createTextNode("Password:"));
+        pass.appendChild(document.createTextNode("Contraseña:"));
         formGroup2.appendChild(pass);
 
         var input2 = document.createElement("input");
@@ -40,14 +40,14 @@ function Login(){
         input2.setAttribute("class", "form-control");
         input2.setAttribute("name", "pass");
         input2.setAttribute("id", "pass");
-        input2.setAttribute("placeholder", "Enter Password");
+        input2.setAttribute("placeholder", "Introduce la contraseña");
         formGroup2.appendChild(input2);
 
         var btn = document.createElement("button");
         btn.setAttribute("type", "button");
         btn.setAttribute("id", "btn-login");
         btn.setAttribute("class", "btn btn-default btnInfo")
-        btn.appendChild(document.createTextNode("Submit"));
+        btn.appendChild(document.createTextNode("Iniciar Sesión"));
         btn.addEventListener("click", openSesion())
         form.appendChild(btn);
     }
@@ -113,7 +113,7 @@ function menuForm(){
         var liCerrar = document.createElement("li");
         nav[0].appendChild(liCerrar);
         var aCerrar = document.createElement("a");
-        aCerrar.appendChild(document.createTextNode("Cerrrar Sesión"));
+        aCerrar.appendChild(document.createTextNode("Cerrar Sesión"));
         aCerrar.addEventListener("click", closeSesion());
         liCerrar.appendChild(aCerrar);
 
@@ -297,7 +297,7 @@ function DeltCat(){
                 while (categoria.done !== true) {
                     if(valueCat === categoria.value.name){
                         vs.removeCategory(categoria.value);
-                        deltDB("category", categoria.value.name);
+                        deltDB("categories", categoria.value.name);
                     }
                     categoria = categorias.next();
                 }
@@ -1609,6 +1609,7 @@ function ModCategory() {
                     }
                     categoria = categorias.next();
                 }
+                console.log("id"+id);
                 modDBCategory(id);
             }
             select.options[select.options.selectedIndex].text = name;
@@ -1728,13 +1729,14 @@ function ModDirector(){
             var select = document.forms["dirForm"]["dir-select"];
             var id = select.options[select.options.selectedIndex].text;
             var name = document.forms["dirForm"]["name"].value;
+            console.log("El nuevo nombre es " +name);
             var lastname1 = document.forms["dirForm"]["lastname1"].value;
             var born = new Date(document.forms["dirForm"]["born"].value);
-           var div1 = document.getElementById("mostrarResult");
+            var div1 = document.getElementById("mostrarResult");
             removeChildren(div1);
             var p = document.createElement("h4");
             div1.appendChild(p);
-            if (name == "" || lastname1 == "" || born == "" || id == "") {
+            if (name == "" || lastname1 == "" || born == "Invalid Date" || id == "") {
                 p.appendChild(document.createTextNode("Error al modificar el director"));
                 p.setAttribute("style", "color:red");
                 throw new EmptyValueException();
@@ -1750,7 +1752,7 @@ function ModDirector(){
                     }
                     director = directores.next();
                 }
-                modDBPerson("directors",id);
+                modDBPerson("directors", id);
             }
             select.options[select.options.selectedIndex].text = name + " " + lastname1;
             p.appendChild(document.createTextNode("Guardado"));
@@ -1864,7 +1866,6 @@ function ModDirector(){
         date.setAttribute("class", "form-control");
         date.setAttribute("name", "born");
         date.setAttribute("id", "born");
-        date.setAttribute("placeholder", "Meter AAAA/MM/DD");
         div4.appendChild(date);
 
         var div5 = document.createElement("div");

@@ -79,7 +79,6 @@ Production.prototype.toString = function(){
 }
 window.onload = test;*/
 
-
 Production.prototype.getObject = function(){
     return {
         title: this.title,
