@@ -108,6 +108,10 @@ function menuForm(){
     var username = getCookie("username");
     //Para que solo pueda meterse el administrador 
     if (username === "prueba") {
+        /*var bn = document.createElement("h3");
+        bn.appendChild(document.createTextNode("Bienvenido "+ username));
+        bn.setAttribute("id","bn");
+        main.appendChild(bn);*/
         //Meto el cerrar sesión en el menú
         removeChildren(nav[0]);
         var liCerrar = document.createElement("li");

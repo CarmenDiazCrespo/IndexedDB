@@ -125,7 +125,9 @@ function showHomePage(){
     var tituloPag = document.createElement("h2");
     tituloPag.appendChild(document.createTextNode("Página de Inicio"));
     tituloPag.setAttribute("id","Ini");
-    main.appendChild(tituloPag);
+    main.appendChild(tituloPag);       
+
+    
 
     var divCon = document.createElement("div");
     divCon.setAttribute("class","container");
@@ -968,10 +970,10 @@ function initPopulate() {
     //Método para crear los objetos
     crearObjetos();
     //Llamo al método para que se vean las categorías en el main
-    setTimeout(function() {
-        showHomePage();
-        menu();
-	}, 1000);
+   
+    showHomePage();
+    menu();
+
     //Las funciones del menu
     
 }

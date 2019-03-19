@@ -260,7 +260,7 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 				}
 				//Si todo va bien añado el production.
 				_productions.push(production);
-				setProductions(production.title);
+				//setProductions(production.title);
 				//Devuelvo el número de elementos que tiene el array _productions.
 				return _productions.length;
 			}
@@ -308,7 +308,7 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 				}
 
 				_productions.splice(post,1);
-				setProductions(production.title);
+				//setProductions(production.title);
 				//Devuelvo el número de elementos del array de producciones.
 				return _productions.length;
 			}
@@ -787,9 +787,9 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 				}
 				return iterador;
 			}
-			function setProductions(pros){
+			/*function setProductions(pros){
 				localStorage.setItem("productions",pros);
-			}
+			}*/
 			
         }
         VideoSystem.prototype = {}; 

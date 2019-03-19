@@ -108,4 +108,5 @@ window.onload = function(){
     if(estado == "running"){
         iniciar();
     }
+    iniciar();
 }
