@@ -8,8 +8,8 @@ function Person(name, lastname1, lastname2 = "", born, picture){ //Aunque no son
     if (!name || name == '') throw new EmptyValueException("name");
     if (!lastname1 || lastname1 == '' )  throw new EmptyValueException("lastname1");
     if (!born || born == '' ) throw new EmptyValueException("born");
-    if (!/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/.test(born)) 
-        throw new InvalidValueException("born",born);	//Tiene que ir AAAA-MMM-DDD
+/*if (!/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/.test(born)) 
+        throw new InvalidValueException("born",born);	*///Tiene que ir AAAA-MMM-DDD
    
     //Los parametros no obligatorios los pongo vacios si no me pasan nada
     var _name = name;

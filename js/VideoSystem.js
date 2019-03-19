@@ -260,6 +260,7 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 				}
 				//Si todo va bien añado el production.
 				_productions.push(production);
+				setProductions(production.title);
 				//Devuelvo el número de elementos que tiene el array _productions.
 				return _productions.length;
 			}
@@ -306,7 +307,8 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 					}
 				}
 
-                _productions.splice(post,1);
+				_productions.splice(post,1);
+				setProductions(production.title);
 				//Devuelvo el número de elementos del array de producciones.
 				return _productions.length;
 			}
@@ -414,7 +416,7 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 				}		
 				//categoria no puede estar vacio.
 				if (!categoria || categoria === '') throw new EmptyValueException("categoria");
-				console.log("position=" + getCategoryPosition(categoria));
+				//console.log("position=" + getCategoryPosition(categoria));
 				//Busco si existe el categoria.
 				if(getCategoryPosition(categoria) !== -1){
 					console.log("error");
@@ -784,6 +786,9 @@ var VideoSystem = (function () { //La función anónima devuelve un método getI
 					}
 				}
 				return iterador;
+			}
+			function setProductions(pros){
+				localStorage.setItem("productions",pros);
 			}
 			
         }

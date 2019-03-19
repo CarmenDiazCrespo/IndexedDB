@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Cronometro</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Diaz-Crespo Ruiz de Lira Carmen">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/cssCrono.css"/>
+</head>
+
+<body>
+
+    <main >
+        <div id="main">
+            <div id="div-title">
+                <h1>Cronómetro:</h1>
+            </div>
+                    
+            <div id="div-crono">
+                <h2 id="cronometro">00:00:00</h2>
+                <div id="botones" class="btn-group">
+                    <button id="iniciar" class="btn btn-primary" onclick="iniciar()">Iniciar</button>
+                    <button id="parar" class="btn btn-primary" onclick="parar()" disabled>Parar</button>
+                    <button id="reiniciar" class="btn btn-primary" onclick="reset()">Reiniciar</button>
+                </div>
+                        
+            </div>
+        </div>
+        
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="container-fluid">
+        <div class="container media">
+            <div class="media-body">
+                <div class="text-center">
+                    <h3>Información del autor</h3>
+                    <img class="gif" src="imagenes/hola.gif" alt="Hola, sigo siendo Carmen">
+                    <p>Hola, soy Carmen </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+   
+
+    <script src="js/Cronometro.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
+

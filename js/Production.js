@@ -10,8 +10,8 @@ var Production=function (title, nationality = "", publication, synopsis, image){
     //Estos parametros son obligatorios, así me aseguro que no están vacios.
     if (!title || title == '') throw new EmptyValueException("title");
     if (!publication || publication == '' ) throw new EmptyValueException("publication");
-    if (!/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/.test(publication)) 
-        throw new InvalidValueException("publication",publication); //Tiene que ser AAAA-MMM-DD
+    /*if (!/^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/.test(publication)) 
+        throw new InvalidValueException("publication",publication); *///Tiene que ser AAAA-MMM-DD
     
     //Los que no son obligatorios los sustituyos por vacios.
     var _title = title;

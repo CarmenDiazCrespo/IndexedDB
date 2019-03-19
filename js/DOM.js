@@ -5,10 +5,10 @@ var vs = VideoSystem.getInstance();
 function crearObjetos(){
     //Creo los objetos que voy a utilizar.
     //Objetos usuarios
-    var u1 = new User("kheiss","montoya@hotmail.com","Montoya123!");
+    /*var u1 = new User("kheiss","montoya@hotmail.com","Montoya123!");
     var u2 = new User("kheiss22","montoya.diaz@hotmail.com","MontoyaDiaz123!");
     vs.addUser(u1);
-    vs.addUser(u2);
+    vs.addUser(u2);*/
     //objetos director = persona
     var dir1= new Person("Isao","Takahata","","1935-02-29");
     dir1.picture="imagenes/Isao_Takahata.jpg";
@@ -956,7 +956,7 @@ function menu(){
     directores.addEventListener("click", showDirectors());
     var producciones = document.getElementById("producciones");
     producciones.addEventListener("click", showProductions());
-    var categorias= document.getElementById("producciones");
+    var categorias= document.getElementById("menu-category");
     categorias.addEventListener("click", categoriesMenuPopulate());
 
     var login = document.getElementById("login");
@@ -968,9 +968,12 @@ function initPopulate() {
     //Método para crear los objetos
     crearObjetos();
     //Llamo al método para que se vean las categorías en el main
-    showHomePage();
+    setTimeout(function() {
+        showHomePage();
+        menu();
+	}, 1000);
     //Las funciones del menu
-    menu();
+    
 }
 
 window.onload = initPopulate;

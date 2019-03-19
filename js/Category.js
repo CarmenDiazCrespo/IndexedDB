@@ -44,6 +44,7 @@ window.onload = test;*/
 Category.prototype.getObject = function(){
     return {
         name: this.name,
-        description: this.description
+        description: this.description,
+        productions: []
     };
 }
